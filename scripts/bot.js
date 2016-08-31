@@ -26,4 +26,24 @@ module.exports = function (robot) {
 
     return msg.reply(a + " plus " + b + " = " + c);
   })
+
+  robot.respond(/What's your favourite (.*)/, function(msg){
+    let fav;
+    fav = msg.match[1];
+    console.log(fav);
+    switch (fav) {
+      case "food":
+        return msg.reply("I'm a robot--I don't eat food!")
+        break;
+      case "band":
+        return msg.reply("It's a gotta be Daft Punk!")
+        break;
+      case "programming language":
+        return msg.reply("Javascript, of course!")
+        break
+      default:
+        return msg.reply("I don't have a favourite " + fav + ". What's yours?");
+
+    }
+  })
 }
