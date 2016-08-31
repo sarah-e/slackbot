@@ -40,7 +40,7 @@ module.exports = function (robot) {
         break;
       case "programming language":
         return msg.reply("Javascript, of course!")
-        break
+        break;
       default:
         return msg.reply("I don't have a favourite " + fav + ". What's yours?");
 
