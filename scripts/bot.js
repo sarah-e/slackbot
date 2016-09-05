@@ -65,10 +65,10 @@ module.exports = function (robot) {
   // hangman
   robot.hear(/play hangman/i, function(res){
      return res.send("Sure, let's play!");
-  })
+  });
 
   let words = ["apple", "orange", "strawberry", "mango", "blueberry", "watermelon"]
-  let randomWord = words[Math.floor(Math.random() * words.length)]
+  let randomWord = words[Math.floor(Math.random() * words.length)];
   let chars = randomWord.split('');
 
   // robot.hear(/guess: (.*)/i, function(res) {
