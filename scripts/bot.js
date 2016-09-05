@@ -71,11 +71,9 @@ module.exports = function (robot) {
   let randomWord = words[Math.floor(Math.random() * words.length)]
   let chars = randomWord.split('');
 
-  robot.hear(/guess: (.*)/i, function(res) {
-      var guess = msg.match[1]
-
-    return
-  }
+  // robot.hear(/guess: (.*)/i, function(res) {
+  //     var guess = msg.match[1]
+  // });
 
 //
 // randomWord.split('').forEach(letter =>
