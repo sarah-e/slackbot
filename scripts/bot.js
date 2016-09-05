@@ -71,9 +71,22 @@ module.exports = function (robot) {
   let randomWord = words[Math.floor(Math.random() * words.length)];
   let chars = randomWord.split('');
 
-  // robot.hear(/guess: (.*)/i, function(res) {
-  //     var guess = msg.match[1]
-  // });
+  robot.hear(/guess: (.*)/i, function(res) {
+      var guess = msg.match[1]
+      console.log(guess);
+      console.log(randomWord);
+  });
+
+}
+
+
+// let cats = [1,2,3,4,5,6,7,8,9]
+// numbers.forEach(function (number) {
+//   console.log(number);
+// })
+//
+// numbers.forEach(number => console.log(number))
+
 
 //
 // randomWord.split('').forEach(letter =>
