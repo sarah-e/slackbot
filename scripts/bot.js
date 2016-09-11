@@ -43,44 +43,99 @@ module.exports = function (robot) {
         break;
       default:
         return msg.reply("I don't have a favourite " + fav + ". What's yours?");
-
     }
   })
 
   robot.respond(/is it a (weekend|holiday)\s?\?/i, function(msg){
     let today = new Date();
-
     msg.reply(today.getDay() === 0 || today.getDay() === 6 ? "YES" : "NO");
-  });
+  })
 
   robot.hear(/I did it/i, function(msg){
     msg.send("Congratulations! Good job!");
-  });
+  })
 
   robot.respond(/convert \$(.*) to btc/i, function(res){
     let usd = res.match[1];
     res.reply("That is about " + usd*0.0024 + " in BTC");
-  });
+  })
 
-  // hangman
-  robot.hear(/play hangman/i, function(res){
-     return res.send("Sure, let's play!");
-  });
 
-  let words = ["apple", "orange", "strawberry", "mango", "blueberry", "watermelon"]
+  let words = ["apple", "cat", "dog", "red", "berry", "leg", "pig", "cow", "bird", "egg"]
   let randomWord = words[Math.floor(Math.random() * words.length)];
-  let chars = randomWord.split('');
+  // let randomWord
+  // let chars = randomWord.split('');
+  // let currentWord = new Array(randomWord.length);
+  // currentWord = currentWord.fill("_");
 
-  robot.hear(/guess: (.*)/i, function(res) {
-      var guess = msg.match[1]
-      console.log(guess);
-      console.log(randomWord);
-  });
+  function restart() {
+    let totalIncorrectGuess = 0;
+    randomWord = words[Math.floor(Math.random() * words.length)];
+    let chars = randomWord.split('');
+    let currentWord = new Array(randomWord.length);
+    currentWord = currentWord.fill("_");
+    return [randomWord, chars, currentWord, totalIncorrectGuess]
+  }
 
+  // start playing hangman
+  robot.hear(/play hangman/, function(res){
+    res.send("Sure, let's play! \n Type guess then the letter \n eg. guess a");
+    let restartValues = restart(); // initilise
+    res.send(`The word has ${restartValues[0].length} characters \n ${restartValues[2].join("")}`);
+    res.send("This is the randomWord: " + restartValues[0] + ". This is the chars: " + restartValues[1]);
+    res.send("This is the totalIncorrectGuess: " + restartValues[3]);
+    guessing(restartValues)
+  })
+
+
+  function guessing(values){
+    let randomWord = values[0]
+    let chars = values[1]
+    let currentWord = values[2]
+    let totalIncorrectGuess = values[3]
+    for (let i = 0; totalIncorrectGuess < 2; i++ ) {
+      robot.hear(/guess (.*)/i, function(res) {
+        let guess = res.match[1].toLowerCase();
+
+        if (chars.includes(guess) && (!(chars.join("") === currentWord.join("")))){
+          chars.forEach( (char, i) => {
+            if(char === guess) {
+              currentWord[i] = guess;
+              res.reply(`${currentWord.join("")}`)
+            }
+          })
+        } else {
+          totalIncorrectGuess++
+          res.reply(`${guess} is not in the word. Show hangman image ` + showHangman(totalIncorrectGuess))
+          res.send(`The word has ${randomWord.length} characters \n ${currentWord.join("")}`);
+          res.send("This is the randomWord: " + randomWord + ". This is the chars: " + chars);
+          res.send("This is the totalIncorrectGuess: " + totalIncorrectGuess);
+        }
+      });
+    }
+
+
+    if(chars.join("") === currentWord.join("")){
+      res.reply(`Congratulations! You guessed the word!`);
+      restart() // restart the game
+    } else {
+      res.reply(`Game over! You are hangman \n To play again type "play hangman"`);
+      restart() // restart the game
+    }
+
+
+    function showHangman(guess) {
+      return `image ${guess}`;
+    }
+  }
 }
 
 
-// let cats = [1,2,3,4,5,6,7,8,9]
+
+
+
+
+// let numbers = [1,2,3,4,5,6,7,8,9]
 // numbers.forEach(function (number) {
 //   console.log(number);
 // })
