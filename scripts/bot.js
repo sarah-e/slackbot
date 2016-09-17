@@ -61,7 +61,8 @@ module.exports = function (robot) {
   })
 
   let totalIncorrectGuess = 0;
-  let words = ["apple", "cat", "dog", "red", "berry", "leg", "pig", "cow", "bird", "egg"]
+  // let words = ["apple", "cat", "dog", "red", "berry", "leg", "pig", "cow", "bird", "egg"]
+  let words = ["earth", "venus", "mars"]
   let randomWord = words[Math.floor(Math.random() * words.length)];
   let chars = randomWord.split('');
   let currentWord = new Array(randomWord.length);
@@ -86,7 +87,7 @@ module.exports = function (robot) {
    res.send(`The word has ${randomWord.length} characters \n ${currentWord.join("")}`);
    res.send("This is the randomWord: " + randomWord + ". This is the chars: " + chars);
   })
-
+  // 
   // robot.hear(/new hangman/i, function(res){
   //  res.send("Starting a new game!");
   //  // do some initilize function here
@@ -109,14 +110,14 @@ module.exports = function (robot) {
         res.reply(`${guess} is not in the word. Show hangman image ` + showHangman(totalIncorrectGuess))
 
       }
-    } else {
+    } /*else {
       res.reply(`Game over! You are hangman \n To play again type play hangman`);
-    }
-
+    }*/
+/*
     if(chars.join("") === currentWord.join("")){
       res.reply(`Congratulations! You guessed the word!`);
       // restart() // restart the game
-    }
+    }*/
   });
 
   function showHangman(guess) {
@@ -161,3 +162,5 @@ module.exports = function (robot) {
 //
 // To test your bot locally ( so dont need to git ):
 // `HUBOT_SLACK_TOKEN=YOUR_TOKEN ./bin/hubot --adapter slack`
+
+// HUBOT_SLACK_TOKEN=xoxb-74759059140-wAsJIUsrLjcX1g012M5PWXuA ./bin/hubot --adapter slack
