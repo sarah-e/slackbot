@@ -125,38 +125,3 @@ module.exports = function (robot) {
     }
   }
 }
-
-
-
-
-
-
-// let numbers = [1,2,3,4,5,6,7,8,9]
-// numbers.forEach(function (number) {
-//   console.log(number);
-// })
-//
-// numbers.forEach(number => console.log(number))
-
-
-//
-// randomWord.split('').forEach(letter =>
-// )
-//
-// }
-//
-//
-// To update your bot with changes:
-//
-//  Add your change:
-//  `git add .`
-//
-//  Commit your change:
-//  `git commit -m "changed bot blah blah"`
-//
-//  Push changes to heroku:
-//  `git push heroku master`
-
-//
-// To test your bot locally ( so dont need to git ):
-// `HUBOT_SLACK_TOKEN=YOUR_TOKEN ./bin/hubot --adapter slack`
