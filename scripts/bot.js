@@ -61,39 +61,19 @@ module.exports = function (robot) {
   })
 
   let totalIncorrectGuess = 0;
-  // let words = ["apple", "cat", "dog", "red", "berry", "leg", "pig", "cow", "bird", "egg"]
-  let words = ["earth", "venus", "mars"]
+  let words = []
+  words = ["earth", "venus", "mars", "juipter", "saturn", "mercury"]
   let randomWord = words[Math.floor(Math.random() * words.length)];
   let chars = randomWord.split('');
   let currentWord = new Array(randomWord.length);
   currentWord = currentWord.fill("_");
-  //
-  // function restart() {
-  //   return randomWord = words[Math.floor(Math.random() * words.length)];
-  // }
 
   // start playing hangman
   robot.hear(/play hangman/, function(res){
    res.send("Sure, let's play! \n Type guess then the letter \n eg. guess a");
-   // do some initilise function here
-  //  initiliseHangman(function(totalIncorrectGuess, chars, currentWord){
-  //    console.log(totalIncorrectGuess, chars, currentWord);
-  //  });
-    // let randomWordNew = restart();
-  //   let chars = randomWord.split('');
-  //   let currentWord = new Array(randomWord.length);
-  //   currentWord = currentWord.fill("_");
-  //   res.send(`${currentWord.join("")}`);
-   res.send(`The word has ${randomWord.length} characters \n ${currentWord.join("")}`);
-   res.send("This is the randomWord: " + randomWord + ". This is the chars: " + chars);
+   console.log(`The word has ${randomWord.length} characters \n ${currentWord.join("")}`);
+   console.log("This is the randomWord: " + randomWord + ". This is the chars: " + chars);
   })
-  // 
-  // robot.hear(/new hangman/i, function(res){
-  //  res.send("Starting a new game!");
-  //  // do some initilize function here
-  //  res.send("This is the randomWord: " + randomWord + ". This is the chars: " + chars);
-  //  res.send(`The word has ${randomWord.length} characters ${currentWord.join("")}`);
-  // });
 
   robot.hear(/guess (.*)/i, function(res) {
     let guess = res.match[1].toLowerCase();
@@ -110,21 +90,17 @@ module.exports = function (robot) {
         res.reply(`${guess} is not in the word. Show hangman image ` + showHangman(totalIncorrectGuess))
 
       }
-    } /*else {
+    } else {
       res.reply(`Game over! You are hangman \n To play again type play hangman`);
-    }*/
-/*
+    }
+
     if(chars.join("") === currentWord.join("")){
-      res.reply(`Congratulations! You guessed the word!`);
-      // restart() // restart the game
-    }*/
-  });
+      res.reply(`Congratulations! You guessed the word!`)
+    }
+  })
 
   function showHangman(guess) {
-
       return `image ${guess}`;
-
-
   }
 }
 
